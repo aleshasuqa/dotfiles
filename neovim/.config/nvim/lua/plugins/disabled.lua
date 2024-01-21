@@ -1,8 +1,9 @@
 local plugins = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "nvim-pack/nvim-spectre",
+    -- "williamboman/mason.nvim",
+    -- "williamboman/mason-lspconfig.nvim",
+    "vim-pack/nvim-spectre",
     "dstein64/vim-startuptime",
+    "rcarriga/nvim-notify",
 }
 
 To_disbable = {}
@@ -12,5 +13,5 @@ for _, p in ipairs(plugins) do
 end
 
 return {
-    To_disbable
+    To_disbable,
 }
