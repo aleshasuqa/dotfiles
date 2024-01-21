@@ -5,8 +5,8 @@ yabai -m config layout bsp
 yabai -m config window_placement second_child
 
 # padding set to 10px
-yabai -m config top_padding 40
-yabai -m config bottom_padding 7
+yabai -m config top_padding 7
+yabai -m config bottom_padding 37
 yabai -m config left_padding 7
 yabai -m config right_padding 7
 yabai -m config window_gap 7
@@ -22,13 +22,27 @@ yabai -m config mouse_action1 move
 # set modifier + right-click drag to resize window
 yabai -m config mouse_action2 resize
 
+yabai -m config window_border on
+yabai -m config window_border_width 1
+yabai -m config active_window_border_color 0xa07e9cd8
+yabai -m config normal_window_border_color 0xa016161d
+yabai -m config window_border_hidpi on
+yabai -m config window_border_blur off
+yabai -m config window_border_radius 0
+
 
 # when window is dropped in center of another window, swap them (on edges it will split it)
 yabai -m mouse_drop_action swap
 
 yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Spotify$" manage=off
+yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Karabiner-Elements$" manage=off
-
 yabai -m rule --add app="^QuickTime Player$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Battle.net$" manage=off
+yabai -m rule --add app="^Calendar$" manage=off
+
+yabai -m rule --add app="^kitty$" space=1
+yabai -m rule --add app="^(Google Chrome|Safari)$" space=2
+yabai -m rule --add app="^(Discord|Outlook)$" space=3

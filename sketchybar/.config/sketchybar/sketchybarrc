@@ -1,0 +1,153 @@
+#!/bin/bash
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+source "$HOME/.config/sketchybar/colors.sh"
+
+bar=(
+	height=30
+	blur_radius=30
+	position=bottom
+	sticky=off
+	padding_left=10
+	padding_right=10
+	color=0xb0${background:1}
+	topmost=window
+)
+
+sketchybar --bar "${bar[@]}"
+
+default=(
+	icon.font="Mononoki Nerd Font:Regular:14.0"
+	icon.color=0xff${foreground:1}
+	label.font="Mononoki Nerd Font:Regular:14.0"
+	label.color=0xff${foreground:1}
+	padding_left=3
+	padding_right=3
+	label.padding_left=3
+	label.padding_right=3
+	icon.padding_left=4
+	icon.padding_right=4
+)
+
+sketchybar --default "${default[@]}"
+
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+
+for i in "${!SPACE_ICONS[@]}"; do
+	sid=$(($i + 1))
+	sketchybar --add space space.$sid left \
+		--set space.$sid space=$sid \
+		icon=${SPACE_ICONS[i]} \
+		background.color=0xc0${color7:1} \
+		background.corner_radius=1 \
+		background.height=20 \
+		background.drawing=off \
+		label.drawing=off \
+		script="$PLUGIN_DIR/space.sh" \
+		click_script="yabai -m space --focus $sid"
+done
+
+sketchybar --add item space_separator left \
+	--set space_separator icon= \
+	padding_left=10 \
+	padding_right=10 \
+	label.drawing=off \
+	\
+	--add item front_app left \
+	--set front_app script="$PLUGIN_DIR/front_app.sh" \
+	icon.drawing=off \
+	--subscribe front_app front_app_switched
+
+clock=(
+	update_freq=10
+	icon=
+	icon.padding_left=0
+	icon.padding_right=0
+	script="$PLUGIN_DIR/clock.sh"
+	label.color=0xff${color7:1}
+)
+
+volume=(
+	script="$PLUGIN_DIR/volume.sh"
+	label.color=0xff${color2:1}
+	icon.color=0xff${color2:1}
+)
+
+battery=(
+	script="$PLUGIN_DIR/battery.sh"
+	label.color=0xff${color4:1}
+	icon.color=0xff${color4:1}
+	update_freq=120
+)
+
+disk=(
+	script="$PLUGIN_DIR/disk.sh"
+	label.color=0xff${color5:1}
+	icon.color=0xff${color5:1}
+	update_freq=100
+)
+
+cpu=(
+	script="$PLUGIN_DIR/cpu.sh"
+	label.color=0xff${color3:1}
+	icon.color=0xff${color3:1}
+	update_freq=5
+)
+
+mem=(
+	script="$PLUGIN_DIR/mem.sh"
+	label.color=0xff${color6:1}
+	icon.color=0xff${color6:1}
+	update_freq=5
+)
+
+wifi=(
+	script="$PLUGIN_DIR/wifi.sh"
+	label.color=0xff${color4:1}
+	icon.color=0xff${color4:1}
+	update_freq=5
+)
+
+sketchybar \
+	--add item clock right \
+	--set clock ${clock[@]} \
+	\
+	--add item separator right \
+	--set separator icon=󰤃 \
+	\
+	--add item volume right \
+	--set volume ${volume[@]} \
+	--subscribe volume volume_change \
+	\
+	--add item separator1 right \
+	--set separator1 icon=󰤃 \
+	\
+	--add item battery right \
+	--set battery ${battery[@]} \
+	--subscribe battery system_woke power_source_change \
+	\
+	--add item separator2 right \
+	--set separator2 icon=󰤃 \
+	\
+	sketchybar --add item disk right \
+	--set disk ${disk[@]} \
+	\
+	--add item separator3 right \
+	--set separator3 icon=󰤃 \
+	\
+	--add item cpu right \
+	--set cpu ${cpu[@]} \
+	\
+	--add item separator4 right \
+	--set separator4 icon=󰤃 \
+	\
+	--add item mem right \
+	--set mem ${mem[@]} \
+	\
+	--add item separator5 right \
+	--set separator5 icon=󰤃 \
+	\
+	--add item wifi right \
+	--set wifi ${wifi[@]}
+
+sketchybar --update
