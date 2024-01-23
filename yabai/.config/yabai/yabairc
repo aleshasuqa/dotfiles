@@ -22,15 +22,6 @@ yabai -m config mouse_action1 move
 # set modifier + right-click drag to resize window
 yabai -m config mouse_action2 resize
 
-yabai -m config window_border on
-yabai -m config window_border_width 2
-yabai -m config active_window_border_color 0xff2d4f67
-yabai -m config normal_window_border_color 0xff16161d
-yabai -m config window_border_hidpi off
-yabai -m config window_border_blur off
-yabai -m config window_border_radius 0
-
-
 # when window is dropped in center of another window, swap them (on edges it will split it)
 yabai -m mouse_drop_action swap
 
