@@ -33,6 +33,7 @@ yabai -m rule --add app="^QuickTime Player$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Battle.net$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
+yabai -m rule --add app="^Notes$" manage=off
 
 yabai -m rule --add app="^kitty$" space=1
 yabai -m rule --add app="^(Google Chrome|Safari)$" space=2
