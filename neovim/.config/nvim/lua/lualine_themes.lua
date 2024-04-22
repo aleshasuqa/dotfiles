@@ -29,7 +29,6 @@ local colors = {
     },
 }
 
-
 return {
     night = {
         normal = {
@@ -58,20 +57,20 @@ return {
     everforest = {
         normal = {
             a = { fg = colors.everforest.yellow, bg = "none", gui = "bold" },
-            b = { fg = colors.everforest.blue, bg = "none" },   --colors.menu_grey },
+            b = { fg = colors.everforest.yellow, bg = "none" }, --colors.menu_grey },
             c = { fg = colors.everforest.orange, bg = "none" }, --colors.black },
         },
         insert = {
             a = { fg = colors.everforest.aqua, bg = "none", gui = "bold" },
-            b = { fg = colors.everforest.blue, bg = "none" }, --colors.menu_grey },
+            b = { fg = colors.everforest.yellow, bg = "none" }, --colors.menu_grey },
         },
         visual = {
             a = { fg = colors.everforest.statusline3, bg = "none", gui = "bold" },
-            b = { fg = colors.everforest.blue, bg = "none" }, --colors.menu_grey },
+            b = { fg = colors.everforest.yellow, bg = "none" }, --colors.menu_grey },
         },
         replace = {
             a = { fg = colors.everforest.green, bg = "none", gui = "bold" },
-            b = { fg = colors.everforest.green, bg = "none" }, --colors.menu_grey },
+            b = { fg = colors.everforest.yellow, bg = "none" }, --colors.menu_grey },
         },
         inactive = {
             a = { fg = colors.everforest.grey1, bg = "none", gui = "bold" },

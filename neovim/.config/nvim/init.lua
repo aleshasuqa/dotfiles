@@ -16,7 +16,6 @@ vim.cmd('hi! CursorLineNr guibg=none ctermbg=none')
 -- Enable LazyVim auto format
 vim.g.autoformat = true
 
-
 -- LazyVim root dir detection
 -- Each entry can be:
 -- * the name of a detector function like `lsp` or `cwd`
@@ -79,3 +78,5 @@ opt.fillchars = {
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 require("config.keymaps")
+
+vim.treesitter.language.register("tiger", "tig")

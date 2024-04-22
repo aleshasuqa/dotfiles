@@ -64,19 +64,19 @@ clock=(
 	icon.padding_left=0
 	icon.padding_right=0
 	script="$PLUGIN_DIR/clock.sh"
-	label.color=0xff${color7:1}
+	label.color=0xff${color11:1}
 )
 
 volume=(
 	script="$PLUGIN_DIR/volume.sh"
-	label.color=0xff${color2:1}
-	icon.color=0xff${color2:1}
+	label.color=0xff${color4:1}
+	icon.color=0xff${color4:1}
 )
 
 battery=(
 	script="$PLUGIN_DIR/battery.sh"
-	label.color=0xff${color4:1}
-	icon.color=0xff${color4:1}
+	label.color=0xff${color2:1}
+	icon.color=0xff${color2:1}
 	update_freq=120
 )
 
@@ -105,7 +105,7 @@ wifi=(
 	script="$PLUGIN_DIR/wifi.sh"
 	label.color=0xff${color4:1}
 	icon.color=0xff${color4:1}
-	update_freq=5
+	update_freq=60
 )
 
 sketchybar \

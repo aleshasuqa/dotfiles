@@ -35,6 +35,8 @@ return {
             cmp.setup({
                 formatting = lsp_zero.cmp_format(),
                 mapping = cmp.mapping.preset.insert({
+                    ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-d>'] = cmp.mapping.scroll_docs(4),
@@ -81,7 +83,9 @@ return {
                     "hydra_lsp",
                     "autotools_ls",
                     "jsonls",
-                    "rust_analyzer"
+                    "rust_analyzer",
+                    "lua_ls",
+                    "ocamllsp"
 
                 },
                 handlers = {
@@ -91,8 +95,9 @@ return {
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require('lspconfig').lua_ls.setup(lua_opts)
                     end,
-                }
+                },
+                inlay_hints = { enabled = true },
             })
-        end
+        end,
     }
 }

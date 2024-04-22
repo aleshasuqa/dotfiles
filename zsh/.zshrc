@@ -1,61 +1,79 @@
-
-if [ $HOME = "/home/pipa" ]; then 
-    export HOME="/mnt/psf/Home"
-    cd
-fi
-
-export ZSH="$HOME/.oh-my-zsh"
-
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
-
-source $ZSH/oh-my-zsh.sh
-
-
 bindkey -e
 
+# === aliases ===
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias gc="git commit -m"
-alias ga="git add *"
+alias ga="git add"
 alias gp="git push"
 alias gs="git status"
-
-alias cn="cargo new"
-alias ct="cargo test"
-alias cr="cargo run"
-alias cb="cargo build"
-alias ccl="cargo clean"
 
 alias vim="nvim"
 alias vi="nvim"
 alias cim="nvim"
 
-alias vf="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
-
 alias ls='lsd'
+alias ll='lsd -l'
+alias la='lsd -a'
+alias lla='lsd -la'
+alias lt='lsd --tree'
 
-alias l='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
+# === fzf ===
+fg="#D8CAAC"
+bg="#1F1F28"
+bg_highlight="#505A60"
+purple="#D39BB6"
+blue="#83B6AF"
+cyan="#87C095"
+grey="#868D80"
 
-# htpup() {
-#     cd /home/pipa
-#     rm -rf /home/pipa/epita-ing-assistants-acu-myhttpd-2026-aleksei.kotliarov
-#     cp -r /mnt/psf/Home/epita-ing-assistants-acu-myhttpd-2026-aleksei.kotliarov /home/pipa/
-#     cd /home/pipa/epita-ing-assistants-acu-myhttpd-2026-aleksei.kotliarov/httpd
-# }
+export FZF_DEFAULT_OPTS="
+                        --color=fg:-1,bg:-1,hl:${purple},fg+:${fg}
+                        --color=bg+:${bg_highlight},hl+:${purple},info:${blue}
+                        --color=prompt:${cyan},pointer:${cyan},marker:${cyan}
+                        --color=spinner:${cyan},header:${cyan},gutter:${bg}
+                        --padding="1"
+                        --prompt="> "
+                        --marker=">"
+                        --pointer="◆"
+                        --separator="-"
+                        --scrollbar="│"
+                        --layout="reverse"
+                        --info="right"
+                        "
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+source "$HOME/fzf-git.sh"
+
+# === useful stuff ===
+gcom() {
+    if [ "$1" = "" ]; then
+        git commit -m "ff"
+    else
+        git commit -m "$1"
+    fi
+}
 
 gccf() {
     gcc -std=c99 -pedantic -Werror -Wall -Wextra -Wvla -fsanitize=address -g -o "out" "$@"
 }
 
-
+gcpp() {
+    g++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -o "out" "$@"
+}
 
 gtt() {
-    echo "\n---add---\n"
-    git add src/*
     echo "\n---commit---\n"
     git commit -m "gg"
     echo "\n---tag---\n"
@@ -66,7 +84,7 @@ gtt() {
 
 gacp() {
   echo "\n---add---\n"
-  git add *
+  git add -u
   echo "\n---commit---\n"
   git commit -m "$1"
   echo "\n---push---\n"
@@ -85,61 +103,33 @@ lik() {
     rm tmp
 }
 
-intdb() {
-    rm -rf "$HOME/postgres_data/"
-    initdb --locale "$LANG" -E UTF8
-}
+# === env vars ===
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=/usr/local/bin:$PATH
+export MAGICK_HOME=/opt/homebrew/opt/imagemagick/
+export PATH="/opt/homebrew/opt/imagemagick/bin:$PATH"
+# export PATH="/opt/homebrew/include:$PATH"
+# export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/Cellar/ffmpeg/5.1.2_6/include:$PATH"
+# export PATH="/opt/homebrew/include:${PATH:+:${PATH}}"
+export PATH="/opt/homebrew/opt/clang-build-analyzer/bin:$PATH"
+export PATH="/opt/homebrew/opt/cmake/bin:$PATH"
+export PATH="/opt/homebrew/Cellar/clang-build-analyzer/1.5.0/bin:${PATH:+:${PATH}}"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+# export CPATH="/opt/homebrew/include"
+export LIBRARY_PATH="/opt/homebrew/lib" 
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export PATH="/opt/homebrew/opt/bison/bin:$PATH"
+export BAT_THEME="kanagawa"
 
-mkdb() {
-    createuser -s postgres
-    createdb -U postgres roger_roger
-    pg_restore -U postgres -O -d roger_roger roger_roger.dump
-}
+# === omz ===
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+source $ZSH/oh-my-zsh.sh
 
-mntafs() {
-    diskutil unmount force "$HOME/afs"
-    rm -rf "afs"
-    mkdir -p "afs"
-    kinit -f "aleksei.kotliarov@CRI.EPITA.FR"
-    sshfs -o reconnect "aleksei.kotliarov@ssh.cri.epita.fr:/afs/cri.epita.fr/user/a/al/aleksei.kotliarov/u/" "afs"
-}
-
-export PGDATA="$HOME/postgres_data"
-export PGHOST="/tmp"
-export DB_USERNAME="$(whoami)"
-export JAVA_HOME="$(/usr/libexec/java_home)"
-
-export JWS_TICK_DURATION=250
-export JWS_DELAY_MOVEMENT=1
-export JWS_DELAY_BOMB=5
-export JWS_DELAY_FREE=1000
-export JWS_DELAY_SHRINK=10
-export JAVA_HOME=$(/usr/libexec/java_home -v 17.0.9)
-
-case `uname` in
-    Darwin)
-        # commands for OS X go here
-        export PATH=/usr/local/bin:$PATH
-        export MAGICK_HOME=/opt/homebrew/opt/imagemagick/
-        export PATH="/opt/homebrew/opt/imagemagick/bin:$PATH"
-        export PATH="/opt/homebrew/include:$PATH"
-        export PATH="/opt/homebrew/Cellar/ffmpeg/5.1.2_6/include:$PATH"
-        export PATH="/opt/homebrew/include:${PATH:+:${PATH}}"
-        export PATH="/opt/homebrew/opt/clang-build-analyzer/bin:$PATH"
-        export PATH="/opt/homebrew/opt/cmake/bin:$PATH"
-        export PATH="/opt/homebrew/Cellar/clang-build-analyzer/1.5.0/bin:${PATH:+:${PATH}}"
-        export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-        export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-        export CPATH="/opt/homebrew/include"
-        export LIBRARY_PATH="/opt/homebrew/lib" 
-        export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
-        ;;
-    Linux)
-        # commands for Linux go here
-        ;;
-    FreeBSD)
-        # commands for FreeBSD go here
-        ;;
-esac
-
+# === evals ===
 eval "$(starship init zsh)"
+eval "$(fzf --zsh)"
+
+# === opam ===
+[[ ! -r /Users/alekseikotliarov/.opam/opam-init/init.zsh ]] || source /Users/alekseikotliarov/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
