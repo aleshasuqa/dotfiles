@@ -82,6 +82,12 @@ return {
                     vim.lsp.inlay_hint.enable(true)
                 end,
             }
+            lspconfig.tsserver.setup{
+                on_attach = function()
+                    vim.lsp.inlay_hint.enable(true)
+                end,
+            }
+            lspconfig.pylsp.setup{}
         end,
     }
 }

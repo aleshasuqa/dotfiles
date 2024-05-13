@@ -71,6 +71,9 @@ volume=(
 	script="$PLUGIN_DIR/volume.sh"
 	label.color=0xff${color4:1}
 	icon.color=0xff${color4:1}
+    label.width=35
+    label.align=center
+    icon.width=20
 )
 
 battery=(
@@ -78,6 +81,8 @@ battery=(
 	label.color=0xff${color2:1}
 	icon.color=0xff${color2:1}
 	update_freq=120
+    label.width=35
+    label.align=center
 )
 
 disk=(
@@ -85,6 +90,8 @@ disk=(
 	label.color=0xff${color5:1}
 	icon.color=0xff${color5:1}
 	update_freq=100
+    label.width=35
+    label.align=center
 )
 
 cpu=(
@@ -92,6 +99,8 @@ cpu=(
 	label.color=0xff${color3:1}
 	icon.color=0xff${color3:1}
 	update_freq=5
+    label.width=35
+    label.align=center
 )
 
 mem=(
@@ -99,6 +108,8 @@ mem=(
 	label.color=0xff${color6:1}
 	icon.color=0xff${color6:1}
 	update_freq=5
+    label.width=35
+    label.align=center
 )
 
 wifi=(

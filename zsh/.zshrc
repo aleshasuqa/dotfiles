@@ -57,6 +57,16 @@ _fzf_compgen_dir() {
 source "$HOME/fzf-git.sh"
 
 # === useful stuff ===
+
+mkjest() {
+    touch "test/$1.test.js"
+    echo "const { $1 } = require(\"../$1/$1\");
+
+test('', () => {
+  expect($1()).toBe();
+});" > "test/$1.test.js"
+}
+
 gcom() {
     if [ "$1" = "" ]; then
         git commit -m "ff"
@@ -123,6 +133,15 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export PATH="/opt/homebrew/opt/bison/bin:$PATH"
 export BAT_THEME="kanagawa"
 
+# === psql ===
+export PGDATA="$HOME/postgres_data"
+export PGHOST="/tmp"
+mkdb() {
+    initdb --locale "$LANG" -E UTF8
+    postgres -k "$PGHOST"
+    psql postgres -U "$USERNAME" -d postgres -f "$HOME/epita/js/epiTinderDB/provided.sql"
+}
+
 # === omz ===
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
@@ -133,3 +152,8 @@ eval "$(fzf --zsh)"
 
 # === opam ===
 [[ ! -r /Users/alekseikotliarov/.opam/opam-init/init.zsh ]] || source /Users/alekseikotliarov/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# === nvm ===
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
