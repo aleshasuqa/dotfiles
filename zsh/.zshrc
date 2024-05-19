@@ -1,22 +1,5 @@
 bindkey -e
 
-# === aliases ===
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias ga="git add"
-alias gp="git push"
-alias gs="git status"
-
-alias vim="nvim"
-alias vi="nvim"
-alias cim="nvim"
-
-alias ls='lsd'
-alias ll='lsd -l'
-alias la='lsd -a'
-alias lla='lsd -la'
-alias lt='lsd --tree'
 
 # === fzf ===
 fg="#D8CAAC"
@@ -27,20 +10,18 @@ blue="#83B6AF"
 cyan="#87C095"
 grey="#868D80"
 
-export FZF_DEFAULT_OPTS="
-                        --color=fg:-1,bg:-1,hl:${purple},fg+:${fg}
-                        --color=bg+:${bg_highlight},hl+:${purple},info:${blue}
-                        --color=prompt:${cyan},pointer:${cyan},marker:${cyan}
-                        --color=spinner:${cyan},header:${cyan},gutter:${bg}
-                        --padding="1"
-                        --prompt="> "
-                        --marker=">"
-                        --pointer="◆"
-                        --separator="-"
-                        --scrollbar="│"
-                        --layout="reverse"
-                        --info="right"
-                        "
+export FZF_DEFAULT_OPTS="--color=fg:-1,bg:-1,hl:${purple},fg+:${fg} \
+                        --color=bg+:${bg_highlight},hl+:${purple},info:${blue} \
+                        --color=prompt:${cyan},pointer:${cyan},marker:${cyan} \
+                        --color=spinner:${cyan},header:${cyan},gutter:${bg} \
+                        --padding=\"1\" \
+                        --prompt=\"> \" \
+                        --marker=\">\" \
+                        --pointer=\"◆\" \
+                        --separator=\"-\" \
+                        --scrollbar=\"│\" \
+                        --layout=\"reverse\" \
+                        --info=\"right\""
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -157,3 +138,21 @@ eval "$(fzf --zsh)"
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# === aliases ===
+alias zshconfig="mate ~/.zshrc"
+alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias ga="git add"
+alias gp="git push"
+alias gs="git status"
+
+alias vim="nvim"
+alias vi="nvim"
+alias cim="nvim"
+
+alias ls='lsd'
+alias ll='lsd -l'
+alias la='lsd -a'
+alias lla='lsd -la'
+alias lt='lsd --tree'

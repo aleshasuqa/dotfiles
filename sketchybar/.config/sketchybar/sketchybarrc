@@ -156,9 +156,9 @@ sketchybar \
 	--set mem ${mem[@]} \
 	\
 	--add item separator5 right \
-	--set separator5 icon=󰤃 \
-	\
-	--add item wifi right \
-	--set wifi ${wifi[@]}
+	--set separator5 icon=󰤃 #\
+	# \
+	# --add item wifi right \
+	# --set wifi ${wifi[@]}
 
 sketchybar --update
