@@ -58,13 +58,9 @@ return {
                 ensure_installed = {
                     "pylsp",
                     "clangd",
-                    "bashls",
-                    "hydra_lsp",
-                    "autotools_ls",
                     "jsonls",
                     "rust_analyzer",
                     "lua_ls",
-                    "ocamllsp"
 
                 },
                 inlay_hints = { enabled = true },
@@ -88,6 +84,9 @@ return {
                 end,
             }
             lspconfig.pylsp.setup{}
+            lspconfig.phpactor.setup{}
+            lspconfig.tailwindcss.setup{}
+            lspconfig.jdtls.setup{}
         end,
     }
 }

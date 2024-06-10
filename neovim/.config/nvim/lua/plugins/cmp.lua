@@ -101,5 +101,12 @@ return {
             { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
             { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
         },
+    },
+    {
+        'dsznajder/vscode-es7-javascript-react-snippets',
+    },
+    {
+        "luckasRanarison/tailwind-tools.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
     }
 }
