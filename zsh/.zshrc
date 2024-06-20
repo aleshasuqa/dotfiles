@@ -75,7 +75,7 @@ gtt() {
 
 gacp() {
   echo "\n---add---\n"
-  git add -u
+  git add *
   echo "\n---commit---\n"
   git commit -m "$1"
   echo "\n---push---\n"

@@ -38,6 +38,7 @@ yabai -m rule --add app="^Battle.net$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
 yabai -m rule --add app="^Notes$" manage=off
 yabai -m rule --add app="^Simulator" manage=on
+yabai -m rule --add app="^ChatGPT" manage=off
 
 yabai -m rule --add app="^kitty$" space=1
 yabai -m rule --add app="^(Google Chrome|Safari)$" space=2
