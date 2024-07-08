@@ -1,8 +1,8 @@
 # change window focus within space
-cmd - j : yabai -m window --focus south
-cmd - k : yabai -m window --focus north
+cmd - n : yabai -m window --focus south
+cmd - e : yabai -m window --focus north
 cmd - h : yabai -m window --focus west
-cmd - l : yabai -m window --focus east
+cmd - i : yabai -m window --focus east
 
 #change focus between external displays (left and right)
 alt - s: yabai -m display --focus west
@@ -24,25 +24,25 @@ cmd + shift - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 cmd + shift - m : yabai -m window --toggle zoom-fullscreen
 
 # balance out tree of windows (resize to occupy same area)
-cmd + shift - e : yabai -m space --balance
+cmd + shift - j : yabai -m space --balance
 
 # swap windows
-cmd + shift - j : yabai -m window --swap south
-cmd + shift - k : yabai -m window --swap north
+cmd + shift - n : yabai -m window --swap south
+cmd + shift - e : yabai -m window --swap north
 cmd + shift - h : yabai -m window --swap west
-cmd + shift - l : yabai -m window --swap east
+cmd + shift - i : yabai -m window --swap east
 
 # move window and split
-cmd + alt - j : yabai -m window --warp south
-cmd + alt - k : yabai -m window --warp north
+cmd + alt - n : yabai -m window --warp south
+cmd + alt - e : yabai -m window --warp north
 cmd + alt - h : yabai -m window --warp west
-cmd + alt - l : yabai -m window --warp east
+cmd + alt - i : yabai -m window --warp east
 
 # resize
 ctrl + shift + cmd - h : yabai -m window --resize left:-20:0 ; yabai -m window --resize right:-20:0
-ctrl + shift + cmd - j : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
-ctrl + shift + cmd - k : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
-ctrl + shift + cmd - l : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
+ctrl + shift + cmd - n : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
+ctrl + shift + cmd - e : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
+ctrl + shift + cmd - i : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
 
 # move window to display left and right
 shift + alt - s : yabai -m window --display west; yabai -m display --focus west;

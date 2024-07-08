@@ -3,11 +3,9 @@
 -- Add any additional autocmds here
 local autocmd_group = vim.api.nvim_create_augroup("Custom auto-commands", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*.c", "*.h", "*.cpp" },
-    desc = "Auto-format c files after saving",
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+    pattern = {"*.slint"},
     callback = function()
-        vim.cmd(":silent LspZeroFormat")
+        vim.cmd(":setlocal filetype=slint")
     end,
-    group = autocmd_group,
 })

@@ -87,6 +87,8 @@ return {
             lspconfig.phpactor.setup{}
             lspconfig.tailwindcss.setup{}
             lspconfig.jdtls.setup{}
+            lspconfig.slint_lsp.setup{}
+            lspconfig.gopls.setup{}
         end,
     }
 }
