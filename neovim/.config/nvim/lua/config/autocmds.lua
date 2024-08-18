@@ -9,3 +9,10 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
         vim.cmd(":setlocal filetype=slint")
     end,
 })
+
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+    pattern = {"*.apxc", "*.cls", "*.trigger"},
+    callback = function()
+      vim.cmd("set filetype=apex")
+    end,
+})

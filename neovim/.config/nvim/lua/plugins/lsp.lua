@@ -84,11 +84,10 @@ return {
                 end,
             }
             lspconfig.pylsp.setup{}
-            lspconfig.phpactor.setup{}
             lspconfig.tailwindcss.setup{}
-            lspconfig.jdtls.setup{}
-            lspconfig.slint_lsp.setup{}
-            lspconfig.gopls.setup{}
+            lspconfig.apex_ls.setup{
+                filetypes = {'apex', 'apexcode', 'apexc'},
+            }
         end,
     }
 }

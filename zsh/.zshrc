@@ -94,6 +94,12 @@ lik() {
     rm tmp
 }
 
+chlt() {
+    mv ~/dotfiles/aerospace/.config/aerospace/aerospace.toml ~/dotfiles/aerospace/.config/aerospace/tmp
+    mv ~/dotfiles/aerospace/.config/aerospace/.aerospace.toml ~/dotfiles/aerospace/.config/aerospace/aerospace.toml
+    mv ~/dotfiles/aerospace/.config/aerospace/tmp ~/dotfiles/aerospace/.config/aerospace/.aerospace.toml
+}
+
 # === env vars ===
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=/usr/local/bin:$PATH

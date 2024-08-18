@@ -42,7 +42,7 @@ opt.list = true            -- Show some invisible characters (tabs...
 opt.mouse = "a"            -- Enable mouse mode
 opt.number = true          -- Print line number
 opt.relativenumber = true  -- Relative line numbers
-opt.scrolloff = 4          -- Lines of context
+opt.scrolloff = 0          -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true      -- Round indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -77,6 +77,25 @@ opt.fillchars = {
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
-require("config.keymaps")
 
-vim.treesitter.language.register("tiger", "tig")
+vim.g.firenvim_config = {
+    globalSettings = { alt = "all" },
+    localSettings = {
+        [".*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 0,
+            selector = "textarea",
+            takeover = "never",
+        },
+        [".*/apex/.*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 1,
+            selector = "textarea",
+            takeover = "always",
+            filename = '/tmp/{hostname}_{pathname%10}.apxc'
+        }
+    }
+}
+require("config.keymaps")

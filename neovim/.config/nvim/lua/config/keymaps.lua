@@ -2,43 +2,43 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 --
-local kmp = vim.keymap
-kmp.set({'n', 'v'}, "n", "j")
-kmp.set({'n', 'v'}, "e", "k")
-kmp.set({'n', 'v'}, "i", "l")
-kmp.set({'n', 'v'}, "k", "i")
-kmp.set({'n', 'v'}, "l", "e")
-kmp.set({'n', 'v'}, "j", "n")
-kmp.set({'n', 'v'}, "N", "J")
--- kmp.del('n', "E")
-kmp.set({'n', 'v'}, "E", "K")
-kmp.set({'n', 'v'}, "I", "L")
-kmp.set({'n', 'v'}, "K", "I")
-kmp.set({'n', 'v'}, "L", "E")
-kmp.set({'n', 'v'}, "J", "N")
 
--- kmp.del("n", "<C-h>")
--- kmp.del("n", "<C-j>")
--- kmp.del("n", "<C-k>")
-kmp.del("n", "<C-l>")
-kmp.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
-kmp.set("n", "<C-n>", "<cmd>TmuxNavigateDown<cr>")
-kmp.set("n", "<C-e>", "<cmd>TmuxNavigateUp<cr>")
-kmp.set("n", "<C-i>", "<cmd>TmuxNavigateRight<cr>")
+local map = vim.keymap.set
 
-kmp.set("v", "N", ":m '>+1<CR>gv=gv")
-kmp.set("v", "E", ":m '<-2<CR>gv=gv")
+map('', "k", "i")
+map('', "j", "n")
+map('', "l", "e")
+map('', "J", "N")
+map('', "L", "E")
+map('', "K", "I")
 
-kmp.set("n", "<C-l>", "<C-u>zz")
-kmp.set("n", "<C-m>", "<C-d>zz")
+map('', "n", "j")
+map('', "e", "k")
+map('', "i", "l")
 
-kmp.set("x", "<leader>p", '"_dP')
-kmp.set("i", "<C-c>", "<Esc>")
-kmp.set("n", "<leader>k", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-kmp.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
+map('', "N", "J")
+map('', "E", "K")
+map('', "I", "L")
 
-kmp.set("n", "<leader>e", vim.cmd.Ex)
-kmp.set("n", "<leader>q", ":wq<CR>")
+
+map("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
+map("n", "<C-e>", "<cmd>TmuxNavigateUp<cr>")
+map("n", "<C-n>", "<cmd>TmuxNavigateDown<cr>")
+map("n", "<C-i>", "<cmd>TmuxNavigateRight<cr>")
+
+map("v", "N", ":m '>+1<CR>gv=gv")
+map("v", "E", ":m '<-2<CR>gv=gv")
+
+map("n", "<C-l>", "<C-u>zz")
+map("n", "<C-m>", "<C-d>zz")
+
+map("x", "<leader>p", '"_dP')
+map("i", "<C-c>", "<Esc>")
+map("n", "<leader>k", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+map("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
+
+map("n", "<leader>e", vim.cmd.Ex)
+map("n", "<leader>q", ":wq<CR>")
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -50,54 +50,55 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
         local telescope = require('telescope.builtin')
-        kmp.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        kmp.set('n', 'gd', function() telescope.lsp_definitions({ jump_type = "vsplit" }) end, opts)
-        kmp.set('n', 'E', vim.lsp.buf.hover, opts)
-        kmp.set('n', 'gi', telescope.lsp_implementations, opts)
-        kmp.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        kmp.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        kmp.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        kmp.set('n', '<space>wl', function()
+        map('n', 'gD', vim.lsp.buf.declaration, opts)
+        map('n', 'gd', function() telescope.lsp_definitions({ jump_type = "vsplit" }) end, opts)
+        map('n', 'E', vim.lsp.buf.hover, opts)
+        map('n', 'gi', telescope.lsp_implementations, opts)
+        map('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+        map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        map('n', '<space>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
-        kmp.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        kmp.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        kmp.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        kmp.set('n', 'gr', telescope.lsp_references, opts)
-        kmp.set('n', '<space>f', function()
+        map('n', '<space>D', vim.lsp.buf.type_definition, opts)
+        map('n', '<space>rn', vim.lsp.buf.rename, opts)
+        map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        map('n', 'gr', telescope.lsp_references, opts)
+        map('n', '<space>f', function()
             vim.lsp.buf.format { async = true }
         end, opts)
     end,
 })
 
 local builtin = require('telescope.builtin')
-kmp.set('n', '<leader>td', function() require('telescope').extensions['todo-comments'].todo() end)
-kmp.set('n', '<leader>ff', builtin.find_files, {})
-kmp.set('n', '<leader>fg', builtin.live_grep, {})
-kmp.set('n', '<leader>fb', builtin.buffers, {})
-kmp.set('n', '<leader>fh', builtin.help_tags, {})
+map('n', '<leader>td', function() require('telescope').extensions['todo-comments'].todo() end)
+map('n', '<leader>ff', builtin.find_files, {})
+map('n', '<leader>fg', builtin.live_grep, {})
+map('n', '<leader>fb', builtin.buffers, {})
+map('n', '<leader>fh', builtin.help_tags, {})
 
 
 local harpoon = require('harpoon')
 harpoon:setup()
 
-kmp.set("n", "<leader>a", function() harpoon:list():add() end)
+map("n", "<leader>a", function() harpoon:list():add() end)
 
-kmp.set("n", "<S-h>", function() harpoon:list():prev() end)
-kmp.set("n", "<S-i>", function() harpoon:list():next() end)
-kmp.set("n", "<leader>1", function() harpoon:list():select(1) end)
-kmp.set("n", "<leader>2", function() harpoon:list():select(2) end)
-kmp.set("n", "<leader>3", function() harpoon:list():select(3) end)
-kmp.set("n", "<leader>4", function() harpoon:list():select(4) end)
+map("n", "<S-h>", function() harpoon:list():prev() end)
+map("n", "<S-i>", function() harpoon:list():next() end)
+map("n", "<leader>1", function() harpoon:list():select(1) end)
+map("n", "<leader>2", function() harpoon:list():select(2) end)
+map("n", "<leader>3", function() harpoon:list():select(3) end)
+map("n", "<leader>4", function() harpoon:list():select(4) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
 
-kmp.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+map("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-kmp.set("n", "]t", function()
+map("n", "]t", function()
     require("todo-comments").jump_next()
 end, { desc = "Next todo comment" })
 
-kmp.set("n", "[t", function()
+map("n", "[t", function()
     require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
+
