@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 })
 
 vim.api.nvim_create_autocmd({"BufEnter"}, {
-    pattern = {"*.apxc", "*.cls", "*.trigger", "*.apex", "*.soql"},
+    pattern = {"*.apxc", "*.cls", "*.trigger", "*.apex", "*.soql", "*.apexcode"},
     callback = function()
       vim.cmd("set filetype=apex")
     end,

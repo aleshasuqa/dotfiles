@@ -34,13 +34,12 @@ command('SFSObjectFields', function (args)
     local class = args.fargs[1]
 
     local cont = util.retrieve({'sf', 'sobject', 'describe', '--sobject', class}, class)
-    local desc = require('cjson').decode(cont).fields
+    local desc = vim.json.decode(cont).fields
     local fields = {}
     for _, v in ipairs(desc) do
         table.insert(fields,
             {
                 name = v.name,
-                -- action = function() vim.api.nvim_feedkeys('i' .. v.name .. ', ', 'n', true) end
                 action = function() end
             }
         )
@@ -49,6 +48,7 @@ command('SFSObjectFields', function (args)
     local selected = {}
 
     util.tele_cmd({
+        name = 'Select fields',
         picks = fields,
         width = 30,
         telescope_opts = require("telescope.themes").get_cursor{layout_config = {width = 30}},

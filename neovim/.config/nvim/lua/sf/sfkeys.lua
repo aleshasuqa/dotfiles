@@ -13,6 +13,7 @@ map('n', ';;',
             })
         end
         util.tele_cmd({
+            name = 'Select sobject',
             picks = p,
             width = 40,
             telescope_opts = require('telescope.themes').get_cursor{layout_config = {width = 40}},

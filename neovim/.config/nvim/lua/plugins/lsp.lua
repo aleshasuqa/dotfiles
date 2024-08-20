@@ -1,5 +1,19 @@
 return {
     {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function()
+            local configs = require("nvim-treesitter.configs")
+
+            configs.setup({
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "css", "rust", "python", "apex", "soql" },
+                sync_install = false,
+                highlight = { enable = true },
+                indent = { enable = true },
+            })
+        end
+    },
+    {
         'williamboman/mason.nvim',
         lazy = false,
         config = true,
@@ -61,7 +75,8 @@ return {
                     "jsonls",
                     "rust_analyzer",
                     "lua_ls",
-
+                    "apex_ls",
+                    "tsserver",
                 },
                 inlay_hints = { enabled = true },
             })
@@ -84,9 +99,11 @@ return {
                 end,
             }
             lspconfig.pylsp.setup{}
-            lspconfig.tailwindcss.setup{}
             lspconfig.apex_ls.setup{
-                filetypes = {'apex', 'apexcode', 'apexc'},
+                filetypes = {'apex', 'apexcode', 'apexc', 'cls', 'trigger', 'soql'},
+                on_attach = function()
+                    vim.lsp.inlay_hint.enable(true)
+                end,
             }
         end,
     }
