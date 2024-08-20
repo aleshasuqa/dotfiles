@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 --
 
+local vim = vim
 local map = vim.keymap.set
 
 map('', "k", "i")
@@ -38,7 +39,15 @@ map("n", "<leader>k", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 map("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 
 map("n", "<leader>e", vim.cmd.Ex)
-map("n", "<leader>q", ":wq<CR>")
+map("n", "<leader>wq", ":wq<CR>")
+map("n", "<leader>vs", function ()
+    vim.cmd(":vsplit<CR>")
+    require('telescope.builtin').find_files({hidden = true})
+end)
+map("n", "<leader>hs", function ()
+    vim.cmd(":split<CR>")
+    require('telescope.builtin').find_files({hidden = true})
+end)
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -62,7 +71,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
         map('n', '<space>D', vim.lsp.buf.type_definition, opts)
         map('n', '<space>rn', vim.lsp.buf.rename, opts)
-        map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        map({ 'n', 'v' }, '<space>va', vim.lsp.buf.code_action, opts)
         map('n', 'gr', telescope.lsp_references, opts)
         map('n', '<space>f', function()
             vim.lsp.buf.format { async = true }
@@ -72,8 +81,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local builtin = require('telescope.builtin')
 map('n', '<leader>td', function() require('telescope').extensions['todo-comments'].todo() end)
-map('n', '<leader>ff', builtin.find_files, {})
-map('n', '<leader>fg', builtin.live_grep, {})
+map('n', '<leader>ff', function ()
+    builtin.find_files({hidden = true})
+end, {})
+map('n', '<leader>fg', function ()
+    builtin.live_grep({additional_args = {'--hidden'}})
+end, {})
 map('n', '<leader>fb', builtin.buffers, {})
 map('n', '<leader>fh', builtin.help_tags, {})
 
@@ -92,7 +105,7 @@ map("n", "<leader>4", function() harpoon:list():select(4) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
 
-map("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+map("n", "<C-u>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 map("n", "]t", function()
     require("todo-comments").jump_next()
@@ -101,4 +114,3 @@ end, { desc = "Next todo comment" })
 map("n", "[t", function()
     require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
-

@@ -98,4 +98,6 @@ vim.g.firenvim_config = {
         }
     }
 }
-require("config.keymaps")
+
+require('config.keymaps')
+require('sf.sf')

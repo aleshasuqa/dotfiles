@@ -14,7 +14,17 @@ return {
         },
         config = function()
             local telescope = require("telescope")
+            local actions = require('telescope.actions')
             telescope.setup {
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<esc>"] = actions.close,
+                            ["<C-p>"] = false,
+                            ["<C-e>"] = actions.move_selection_previous
+                        }
+                    }
+                },
                 extensions = {
                     fzf = {
                         fuzzy = true,                   -- false will only do exact matching
