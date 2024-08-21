@@ -30,9 +30,9 @@ local colors = {
 }
 
 return {
-    night = {
+    kanagawa = {
         normal = {
-            a = { fg = colors.kanagawa.purple, bg = "none", gui = "bold" },
+            a = { fg = colors.kanagawa.cyan, bg = "none", gui = "bold" },
             b = { fg = colors.kanagawa.magenta, bg = "none" }, --colors.kanagawa.menu_grey },
             c = { fg = colors.kanagawa.yellow, bg = "none" },  --colors.kanagawa.black },
         },
@@ -41,8 +41,8 @@ return {
             b = { fg = colors.kanagawa.blue, bg = "none" }, --colors.kanagawa.menu_grey },
         },
         visual = {
-            a = { fg = colors.kanagawa.cyan, bg = "none", gui = "bold" },
-            b = { fg = colors.kanagawa.cyan, bg = "none" }, --colors.kanagawa.menu_grey },
+            a = { fg = colors.kanagawa.purple, bg = "none", gui = "bold" },
+            b = { fg = colors.kanagawa.purple, bg = "none" }, --colors.kanagawa.menu_grey },
         },
         replace = {
             a = { fg = colors.kanagawa.green, bg = "none", gui = "bold" },

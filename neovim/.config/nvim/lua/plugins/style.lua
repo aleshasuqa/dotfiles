@@ -40,7 +40,7 @@ return {
         event = "VeryLazy",
         opts = function(_, opts)
             opts.options = {
-                theme = require("lualine_themes").everforest,
+                theme = require("lualine_themes").kanagawa,
                 component_separators = { left = "", right = "" },
                 section_separators = { left = "", right = "" },
             }
@@ -53,10 +53,6 @@ return {
         "fladson/vim-kitty",
         lazy = false,
     },
-    -- {
-    --     'stevearc/dressing.nvim',
-    --     opts = {},
-    -- },
     {
         "lukas-reineke/indent-blankline.nvim",
         opts = {

@@ -2,30 +2,29 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 --
-
 local vim = vim
 local map = vim.keymap.set
 
-map('', "k", "i")
-map('', "j", "n")
-map('', "l", "e")
-map('', "J", "N")
-map('', "L", "E")
-map('', "K", "I")
+-- ===== colemak =====
+local function swap(lhs, rhs)
+    map('', lhs, rhs, { noremap = true })
+    map('', rhs, lhs, { noremap = true })
+    map('', string.upper(lhs), string.upper(rhs), { noremap = true })
+    map('', string.upper(rhs), string.upper(lhs), { noremap = true })
+end
 
-map('', "n", "j")
-map('', "e", "k")
-map('', "i", "l")
-
-map('', "N", "J")
-map('', "E", "K")
-map('', "I", "L")
-
+swap("n", "j")
+swap("e", "k")
+swap("i", "l")
 
 map("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
 map("n", "<C-e>", "<cmd>TmuxNavigateUp<cr>")
 map("n", "<C-n>", "<cmd>TmuxNavigateDown<cr>")
 map("n", "<C-i>", "<cmd>TmuxNavigateRight<cr>")
+
+
+-- ===== goodies =====
+map('n', '<leader>nh', ':noh<CR>', { silent = true })
 
 map("v", "N", ":m '>+1<CR>gv=gv")
 map("v", "E", ":m '<-2<CR>gv=gv")
@@ -33,30 +32,28 @@ map("v", "E", ":m '<-2<CR>gv=gv")
 map("n", "<C-l>", "<C-u>zz")
 map("n", "<C-m>", "<C-d>zz")
 
-map("x", "<leader>p", '"_dP')
+map("x", "p", '"_dP')
 map("i", "<C-c>", "<Esc>")
-map("n", "<leader>k", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-map("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
+map("n", "<leader>k", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left><Left>]])
 
 map("n", "<leader>e", vim.cmd.Ex)
 map("n", "<leader>wq", ":wq<CR>")
-map("n", "<leader>vs", function ()
+map("n", "<leader>vs", function()
     vim.cmd(":vsplit<CR>")
-    require('telescope.builtin').find_files({hidden = true})
+    require('telescope.builtin').find_files({ hidden = true })
 end)
-map("n", "<leader>hs", function ()
+map("n", "<leader>hs", function()
     vim.cmd(":split<CR>")
-    require('telescope.builtin').find_files({hidden = true})
+    require('telescope.builtin').find_files({ hidden = true })
 end)
 
+
+-- ===== lsp =====
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
         local telescope = require('telescope.builtin')
         map('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -79,18 +76,45 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
+
+-- ===== telescope =====
 local builtin = require('telescope.builtin')
-map('n', '<leader>td', function() require('telescope').extensions['todo-comments'].todo() end)
-map('n', '<leader>ff', function ()
-    builtin.find_files({hidden = true})
+map('n', '<leader>ff', function()
+    builtin.find_files({
+        hidden = true,
+        layout_config = {
+            width = 0.9,
+            height = 0.9
+        }
+    })
 end, {})
-map('n', '<leader>fg', function ()
-    builtin.live_grep({additional_args = {'--hidden'}})
+map('n', '<leader>fg', function()
+    builtin.live_grep({
+        layout_strategy = 'vertical',
+        layout_config = {
+            mirror = true,
+            preview_cutoff = 1,
+            width = 0.8,
+            height = 0.99
+        },
+        additional_args = { '--hidden' }
+    })
+end, {})
+map('n', '<leader>fh', function()
+    builtin.help_tags({
+        layout_strategy = 'vertical',
+        layout_config = {
+            mirror = true,
+            preview_cutoff = 1,
+            width = 0.5,
+            height = 0.99
+        }
+    })
 end, {})
 map('n', '<leader>fb', builtin.buffers, {})
-map('n', '<leader>fh', builtin.help_tags, {})
 
 
+-- ===== harpoon =====
 local harpoon = require('harpoon')
 harpoon:setup()
 
@@ -103,14 +127,4 @@ map("n", "<leader>2", function() harpoon:list():select(2) end)
 map("n", "<leader>3", function() harpoon:list():select(3) end)
 map("n", "<leader>4", function() harpoon:list():select(4) end)
 
--- Toggle previous & next buffers stored within Harpoon list
-
 map("n", "<C-u>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-map("n", "]t", function()
-    require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-
-map("n", "[t", function()
-    require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })

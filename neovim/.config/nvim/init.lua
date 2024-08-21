@@ -1,13 +1,10 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
+local vim = vim
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("config.lazy")
 require("config.autocmds")
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
 
 -- vim.cmd('hi! LineNr guibg=bg')
 vim.cmd('hi! CursorLineNr guibg=bg ')
@@ -25,7 +22,10 @@ vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
 local opt = vim.opt
 
-opt.autowrite = true           -- Enable auto write
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+
 opt.clipboard = "unnamedplus"  -- Sync with system clipboard
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 2           -- Hide * markup for bold and italic, but not markers with substitutions
@@ -42,18 +42,15 @@ opt.list = true            -- Show some invisible characters (tabs...
 opt.mouse = "a"            -- Enable mouse mode
 opt.number = true          -- Print line number
 opt.relativenumber = true  -- Relative line numbers
-opt.scrolloff = 0          -- Lines of context
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.scrolloff = 2          -- Lines of context
 opt.shiftround = true      -- Round indent
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.shortmess:append({ a = true, I = true, c = true, C = true })
 opt.showmode = false       -- Dont show mode since we have a statusline
 opt.sidescrolloff = 8      -- Columns of context
 opt.signcolumn = "no"      -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true       -- Don't ignore case with capitals
-opt.smartindent = true     -- Insert indents automatically
 opt.spelllang = { "en" }
 opt.splitbelow = true      -- Put new windows below current
-opt.splitkeep = "screen"
 opt.splitright = true      -- Put new windows right of current
 opt.termguicolors = true   -- True color support
 opt.timeoutlen = 300
@@ -74,30 +71,8 @@ opt.fillchars = {
     eob = " ",
 }
 
-
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
-
-vim.g.firenvim_config = {
-    globalSettings = { alt = "all" },
-    localSettings = {
-        [".*"] = {
-            cmdline  = "neovim",
-            content  = "text",
-            priority = 0,
-            selector = "textarea",
-            takeover = "never",
-        },
-        [".*/apex/.*"] = {
-            cmdline  = "neovim",
-            content  = "text",
-            priority = 1,
-            selector = "textarea",
-            takeover = "always",
-            filename = '/tmp/{hostname}_{pathname%10}.apxc'
-        }
-    }
-}
 
 require('config.keymaps')
 require('sf.sf')
