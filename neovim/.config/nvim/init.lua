@@ -20,6 +20,8 @@ vim.g.autoformat = true
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
+vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
+
 local opt = vim.opt
 
 vim.opt.tabstop = 4

@@ -35,7 +35,7 @@ export inactive_tab_foreground=#727169
 # export color17=#FF5D62
 
 
-export background=#1F1F28
+export background=#1a1a22
 export foreground=#D8CAAC
 
 export cursor=#D8CAAC

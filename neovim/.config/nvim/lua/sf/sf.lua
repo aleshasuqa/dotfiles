@@ -4,11 +4,11 @@ local util = require('sf.util')
 
 local commands = {
     {
-        name = 'run',
+        name = 'run this',
         action = function() vim.cmd('SFRun') end
     },
     {
-        name = 'soql query',
+        name = 'query',
         action = function() vim.cmd('SFQuery') end
     },
     {
@@ -20,20 +20,42 @@ local commands = {
         action = function() vim.cmd('SFLogin') end
     },
     {
-        name = 'deploy to org',
+        name = 'login sandbox',
+        action = function() vim.cmd('SFLoginSandbox') end
+    },
+    {
+        name = 'deploy force-app',
         action = function() vim.cmd('SFDeploy') end
     },
     {
-        name = 'retrieve from org',
-        action = function() vim.cmd('SFDeploy') end
+        name = 'deploy this',
+        action = function() vim.cmd('SFDeployThis') end
+    },
+    {
+        name = 'deploy select',
+        action = function() vim.cmd('SFDeploySelect') end
+    },
+    {
+        name = 'retrieve force-app',
+        action = function() vim.cmd('SFRetrieve') end
+    },
+    {
+        name = 'org browser',
+        action = function() vim.cmd('SFOrgBrowser') end
     },
     {
         name = 'test class',
-        action = function() vim.cmd('SFTestClass') end
+        action = function()
+            vim.cmd('SFTestClass')
+        end
     },
     {
         name = 'test method',
         action = function() vim.cmd('SFTestMethod') end
+    },
+    {
+        name = 'get logs',
+        action = function() vim.cmd('SFGetLogs') end
     },
     {
         name = 'create class',
@@ -57,18 +79,14 @@ local commands = {
             vim.cmd('SFCreateLWC ' .. lwc)
         end
     },
-    {
-        name = 'SObjct fields',
-        action = function() vim.cmd('SFSObjectFields') end
-    },
 }
 
-map("n", "<leader>ss", function ()
+map({'n', 'v'}, "<leader>ss", function ()
     util.tele_cmd({
         name = 'SF',
         picks = commands,
-        width = 25,
-        telescope_opts = require("telescope.themes").get_dropdown{layout_config = {width = 25}},
+        width = 30,
+        telescope_opts = require("telescope.themes").get_dropdown{layout_config = {width = 30}},
         mappings = function(prompt_bufnr, nmap)
             nmap('i', '<CR>', function()
                 require('telescope.actions').close(prompt_bufnr)

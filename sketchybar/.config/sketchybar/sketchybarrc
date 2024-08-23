@@ -4,48 +4,64 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 source "$HOME/.config/sketchybar/colors.sh"
 
 bar=(
-	height=30
+	height=17
 	blur_radius=30
 	position=bottom
 	sticky=off
 	padding_left=10
 	padding_right=10
-	color=0xb0${background:1}
+	color=0xC0${background:1}
 	topmost=window
 )
 
 sketchybar --bar "${bar[@]}"
 
 default=(
-	icon.font="Mononoki Nerd Font:Regular:14.0"
-	icon.color=0xff${foreground:1}
-	label.font="Mononoki Nerd Font:Regular:14.0"
-	label.color=0xff${foreground:1}
-	padding_left=3
-	padding_right=3
-	label.padding_left=3
-	label.padding_right=3
-	icon.padding_left=4
-	icon.padding_right=4
+	icon.font="Mononoki Nerd Font:Bold:11.0"
+	icon.color=0xff${color11:1}
+	label.font="Mononoki Nerd Font:Bold:11.0"
+	label.color=0xE0${foreground:1}
+	padding_left=2
+	padding_right=2
+	label.padding_left=0
+	label.padding_right=0
+	icon.padding_left=0
+	icon.padding_right=0
 )
 
 sketchybar --default "${default[@]}"
 
 SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_mode_change
 
-for i in "${!SPACE_ICONS[@]}"; do
-	sid=$(($i + 1))
-	sketchybar --add space space.$sid left \
-		--set space.$sid space=$sid \
-		icon=${SPACE_ICONS[i]} \
-		background.color=0xc0${color7:1} \
-		background.corner_radius=1 \
-		background.height=20 \
-		background.drawing=off \
-		label.drawing=off \
-		script="$PLUGIN_DIR/space.sh" \
-		click_script="yabai -m space --focus $sid"
+for sid in $(aerospace list-workspaces --all); do
+    sketchybar --add item space.$sid left \
+        --subscribe space.$sid aerospace_workspace_change \
+        --set space.$sid \
+        background.color=0x44ffffff \
+        background.corner_radius=0 \
+        background.height=20 \
+        background.drawing=off \
+        label="$sid" \
+        label.padding_left=4 \
+        label.padding_right=4 \
+        click_script="aerospace workspace $sid" \
+        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
+# for i in "${!SPACE_ICONS[@]}"; do
+# 	sid=$(($i + 1))
+# 	sketchybar --add space space.$sid left \
+# 		--set space.$sid space=$sid \
+# 		icon=${SPACE_ICONS[i]} \
+# 		background.color=0xc0${color7:1} \
+# 		background.corner_radius=1 \
+# 		background.height=20 \
+# 		background.drawing=off \
+# 		label.drawing=off \
+# 		script="$PLUGIN_DIR/space.sh" \
+# 		click_script="yabai -m space --focus $sid"
+# done
 
 sketchybar --add item space_separator left \
 	--set space_separator icon= \
@@ -56,67 +72,86 @@ sketchybar --add item space_separator left \
 	--add item front_app left \
 	--set front_app script="$PLUGIN_DIR/front_app.sh" \
 	icon.drawing=off \
-	--subscribe front_app front_app_switched
+	--subscribe front_app front_app_switched \
+    \
+    --add item service_mode left \
+    --set service_mode script="$PLUGIN_DIR/service_mode.sh off" \
+    label="[S]" \
+    label.padding_left=4 \
+    label.padding_right=4 \
+    --subscribe service_mode aerospace_mode_change
 
 clock=(
-	update_freq=10
+	update_freq=60
 	icon=
 	icon.padding_left=0
 	icon.padding_right=0
 	script="$PLUGIN_DIR/clock.sh"
-	label.color=0xff${color11:1}
+    # label.color=0xff${color11:1}
 )
 
 volume=(
 	script="$PLUGIN_DIR/volume.sh"
-	label.color=0xff${color4:1}
+	# label.color=0xff${color4:1}
 	icon.color=0xff${color4:1}
-    label.width=35
-    label.align=center
+    label.width=14
+    label.align=right
+    icon.align=left
     icon.width=20
 )
 
 battery=(
 	script="$PLUGIN_DIR/battery.sh"
-	label.color=0xff${color2:1}
+	# label.color=0xff${color2:1}
 	icon.color=0xff${color2:1}
-	update_freq=120
-    label.width=35
-    label.align=center
+	update_freq=60
+    label.width=14
+    icon.width=25
+    label.align=right
+    icon.align=left
 )
 
 disk=(
 	script="$PLUGIN_DIR/disk.sh"
-	label.color=0xff${color5:1}
+	# label.color=0xff${color5:1}
 	icon.color=0xff${color5:1}
-	update_freq=100
-    label.width=35
-    label.align=center
+	update_freq=30
+    label.width=19
+    icon.width=25
+    label.align=right
+    icon.align=left
 )
 
 cpu=(
 	script="$PLUGIN_DIR/cpu.sh"
-	label.color=0xff${color3:1}
+	# label.color=0xff${color3:1}
 	icon.color=0xff${color3:1}
 	update_freq=5
-    label.width=35
-    label.align=center
+    label.width=14
+    icon.width=25
+    label.align=right
+    icon.align=left
 )
 
 mem=(
 	script="$PLUGIN_DIR/mem.sh"
-	label.color=0xff${color6:1}
+	# label.color=0xff${color6:1}
 	icon.color=0xff${color6:1}
 	update_freq=5
-    label.width=35
-    label.align=center
+    label.width=14
+    icon.width=25
+    label.align=right
+    icon.align=left
 )
 
 wifi=(
 	script="$PLUGIN_DIR/wifi.sh"
-	label.color=0xff${color4:1}
+	# label.color=0xff${color4:1}
 	icon.color=0xff${color4:1}
-	update_freq=60
+	update_freq=120
+    label.align=right
+    icon.width=15
+    icon.align=left
 )
 
 sketchybar \
@@ -125,6 +160,7 @@ sketchybar \
 	\
 	--add item separator right \
 	--set separator icon=󰤃 \
+	--set separator icon.color=0xff${color11:1} \
 	\
 	--add item volume right \
 	--set volume ${volume[@]} \
@@ -132,6 +168,7 @@ sketchybar \
 	\
 	--add item separator1 right \
 	--set separator1 icon=󰤃 \
+	--set separator1 icon.color=0xff${color11:1} \
 	\
 	--add item battery right \
 	--set battery ${battery[@]} \
@@ -139,26 +176,30 @@ sketchybar \
 	\
 	--add item separator2 right \
 	--set separator2 icon=󰤃 \
+	--set separator2 icon.color=0xff${color11:1} \
 	\
 	sketchybar --add item disk right \
 	--set disk ${disk[@]} \
 	\
 	--add item separator3 right \
 	--set separator3 icon=󰤃 \
+	--set separator3 icon.color=0xff${color11:1} \
 	\
 	--add item cpu right \
 	--set cpu ${cpu[@]} \
 	\
 	--add item separator4 right \
 	--set separator4 icon=󰤃 \
+	--set separator4 icon.color=0xff${color11:1} \
 	\
 	--add item mem right \
 	--set mem ${mem[@]} \
 	\
 	--add item separator5 right \
-	--set separator5 icon=󰤃 #\
-	# \
-	# --add item wifi right \
-	# --set wifi ${wifi[@]}
+	--set separator5 icon=󰤃 \
+	--set separator5 icon.color=0xff${color11:1} \
+	\
+	--add item wifi right \
+	--set wifi ${wifi[@]}
 
 sketchybar --update

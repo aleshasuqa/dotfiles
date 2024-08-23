@@ -21,7 +21,8 @@ return {
                         i = {
                             ["<esc>"] = actions.close,
                             ["<C-p>"] = false,
-                            ["<C-e>"] = actions.move_selection_previous
+                            ["<C-e>"] = actions.move_selection_previous,
+                            ["<Tab>"] = actions.toggle_selection,
                         }
                     }
                 },

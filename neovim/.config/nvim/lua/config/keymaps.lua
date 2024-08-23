@@ -46,6 +46,8 @@ map("n", "<leader>hs", function()
     vim.cmd(":split<CR>")
     require('telescope.builtin').find_files({ hidden = true })
 end)
+map("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>", {silent = true})
+
 
 
 -- ===== lsp =====

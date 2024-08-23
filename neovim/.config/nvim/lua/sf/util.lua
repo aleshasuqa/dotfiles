@@ -13,9 +13,19 @@ local function read_all(file)
     return content
 end
 
+function P.hl_debug(cmd)
+    local color = '$(echo -e "\\033[0;36m")'
+    local nc = '$(echo -e "\\033[0m")'
+    return cmd .. ' | sed -E "s/(.*DEBUG)/' .. color .. '\\1' .. nc .. '/g"'
+end
+
+function P.term(cmds)
+    vim.cmd('term bash -c \'' .. table.concat(cmds, ';') .. '\'')
+end
+
 function P.retrieve(cmd, data)
     local cont = ""
-    local tmpFile = '/tmp/' .. data .. '.json'
+    local tmpFile = '/tmp/sf/' .. data .. '.json'
     if file_exists(tmpFile) then
         cont = read_all(tmpFile)
     else
@@ -24,7 +34,19 @@ function P.retrieve(cmd, data)
         local file = assert(io.open(tmpFile, "w+"))
         file:write(cont)
     end
-    return cont
+    print(cont)
+    return vim.json.decode(cont)
+end
+
+function P.split(inputstr, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
 end
 
 function P.open_float(width, height)
