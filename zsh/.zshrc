@@ -162,3 +162,5 @@ alias ll='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
 alias lt='lsd --tree -I node_modules'
+eval 
+SF_AC_ZSH_SETUP_PATH=/Users/alekseikotliarov/Library/Caches/sf/autocomplete/zsh_setup && test -f $SF_AC_ZSH_SETUP_PATH && source $SF_AC_ZSH_SETUP_PATH; # sf autocomplete setup

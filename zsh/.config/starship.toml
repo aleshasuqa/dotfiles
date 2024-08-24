@@ -5,28 +5,28 @@ $directory\
 $git_branch$git_commit$git_state$git_metrics$git_status\
 $jobs\
 $line_break\
-[❯ ](fg:#bb9af7)\
+[❯ ](fg:#76946A)\
 """
 
 add_newline = true
 
 [os]
 format = "[$symbol]($style)[ ]()"
-style = "fg:#c0caf5"
+style = "fg:#e5ded4"
 disabled = false
 
 [os.symbols]
 Arch = ""
 EndeavourOS = "" # ""
 Linux = ""
-Macos = " "
+Macos = ""
 NixOS = ""
 Ubuntu = ""
 Unknown = ""
 
 
 [directory]
-format = '[❯ ](fg:cyan bold)[$read_only]($read_only_style)[$repo_root]($repo_root_style)[$path]($style)[ ]()'
+format = '[ ](fg:cyan bold)[$read_only]($read_only_style)[$repo_root]($repo_root_style)[$path]($style)[ ]()'
 style = 'fg:cyan bold'
 home_symbol = '~'
 read_only = ' '

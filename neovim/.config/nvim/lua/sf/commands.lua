@@ -35,7 +35,7 @@ end, {})
 command('SFSObjectFields', function (args)
     local class = args.fargs[1]
 
-    local cont = util.retrieve({'sf', 'sobject', 'describe', '--sobject', class}, class)
+    local cont = util.retrieve({'sf', 'sobject', 'describe', '--sobject', class}, class, false)
     local desc = cont.fields
     local fields = {}
     for _, v in ipairs(desc) do
@@ -52,18 +52,15 @@ command('SFSObjectFields', function (args)
     util.tele_cmd({
         name = class .. ' fields',
         picks = fields,
-        width = 30,
-        telescope_opts = require("telescope.themes").get_cursor{layout_config = {width = 30}},
+        width = 40,
+        telescope_opts = require("telescope.themes").get_cursor{layout_config = {width = 40}},
         mappings = function(prompt_bufnr, map)
             map('i', '<CR>', function()
                 local actions = require 'telescope.actions'
-                local action_state = require 'telescope.actions.state'
                 local action_utils = require "telescope.actions.utils"
-                local selection = action_state.get_selected_entry(prompt_bufnr)
                 action_utils.map_selections(prompt_bufnr, function(entry, _)
                     table.insert(selected, entry.value.name)
                 end)
-                table.insert(selected, selection.value.name)
                 actions.close(prompt_bufnr)
                 local cmd = "a"
                 for i, v in ipairs(selected) do
@@ -96,11 +93,14 @@ end, {})
 
 command('SFTestClass', function ()
     local class = ex('%:t:r')
-    -- util.open_float(150, 35)
     vim.cmd('split')
-    local cmd = 'sf apex run test -c -y -n ' .. class
-    local log = 'sf apex get log --number 1'
-    util.term({cmd, log})
+    vim.cmd('term echo Running tests ...')
+    local cmd_out = vim.system({'sf', 'apex', 'run', 'test', '-c', '-v', '--json', '-n', class}, {text = true}):wait().stdout
+    local id = vim.json.decode(cmd_out).result.testRunId
+    local msg = 'echo Running tests ...'
+    local out = 'sf apex get test -c -i ' .. id .. util.hl_word('Pass', '32') .. util.hl_word('Fail', '31')
+    -- local log = 'sf apex get log --number 1'
+    util.term({msg, out})
 end, {})
 
 command('SFTestMethod', function ()
@@ -111,9 +111,12 @@ command('SFTestMethod', function ()
         vim.cmd('noh')
         vim.cmd('split')
         -- util.open_float(150, 35)
-        local cmd = 'sf apex run test -c -y --tests ' .. class .. '.' .. method
+        local msg = 'echo Running test ...'
+        local cmd_out = vim.system({'sf', 'apex', 'run', 'test', '-c', '-v', '--json', '-t', class .. '.' .. method}, {text = true}):wait().stdout
+        local id = vim.json.decode(cmd_out).result.testRunId
+        local out = 'sf apex get test -c -i ' .. id .. util.hl_word('Pass', '32') .. util.hl_word('Fail', '31')
         local log = 'sf apex get log --number 1'
-        util.term({cmd, log})
+        util.term({msg, out, log})
     end)
 end, {})
 
@@ -183,7 +186,7 @@ command('SFRetrieve', function ()
 end, {})
 
 command('SFOrgBrowser', function ()
-    local mdts = util.retrieve({'sf', 'org', 'list', 'metadata-types', '--json'}, 'MDTypes').result.metadataObjects
+    local mdts = util.retrieve({'sf', 'org', 'list', 'metadata-types', '--json'}, 'MDTypes', false).result.metadataObjects
     local mdt_picks = {}
     for _, v in ipairs(mdts) do
         table.insert(mdt_picks, {
@@ -226,12 +229,13 @@ command('SFOrgBrowser', function ()
                     -- vim.cmd('term bash -c \'' .. table.concat(cmds, ';') .. '\'')
                     util.term(cmds)
                 else
-                    local md = util.retrieve({'sf', 'org', 'list', 'metadata', '--metadata-type ', mdt_selected[1], '--json'}, mdt_selected[1])
+                    print('start retrive' .. vim.inspect(mdt_selected))
+                    local md = util.retrieve({'sf', 'org', 'list', 'metadata', '--metadata-type', mdt_selected[1], '--json'}, mdt_selected[1], false)
+                    print('end retrive')
                     local data = md.result
 
                     if data == nil then
                         print('Nothing of this type exists')
-                        vim.cmd('SFOrgBrowser')
                         return
                     end
 

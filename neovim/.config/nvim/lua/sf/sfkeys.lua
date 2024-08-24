@@ -4,11 +4,11 @@ local util = require('sf.util')
 
 map('n', ';;',
     function()
-        local cont = util.retrieve({'sf', 'sobject', 'list', '--sobject', 'all'}, 'AllObjects')
+        local cont = util.retrieve({'sf', 'sobject', 'list', '--json', '--sobject', 'all'}, 'AllObjects', false).result
         local p = {}
-        for s in string.gmatch(cont, '(.-)\n') do
+        for _, v in ipairs(cont) do
             table.insert(p, {
-                name = s,
+                name = v,
                 action = function () end
             })
         end
@@ -36,7 +36,7 @@ map('n', '..', function ()
 end)
 
 map('v', '<leader>rc', function()
-    local script = vim.lsp.get_active_clients()[1].config.cmd_cwd .. '/scripts/apex/tmp.apex'
+    local script = '/tmp/sf/tmp.apex'
     vim.fn.setreg('a', '')
     local cmd = vim.api.nvim_replace_termcodes("\"ay", true, false, true)
     vim.api.nvim_feedkeys(cmd, 'v', true)
@@ -57,7 +57,8 @@ map('n', '<leader>rs', function()
     vim.api.nvim_feedkeys(cmd, 'v', true)
     vim.schedule(function()
         local query = vim.fn.getreg('s')
-        util.open_float(150, 80)
+        -- util.open_float(150, 80)
+        vim.cmd('split')
         vim.cmd('term sf data query --query \"' .. query .. '\"')
     end)
 end, {})

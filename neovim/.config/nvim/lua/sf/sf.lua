@@ -85,8 +85,8 @@ map({'n', 'v'}, "<leader>ss", function ()
     util.tele_cmd({
         name = 'SF',
         picks = commands,
-        width = 30,
-        telescope_opts = require("telescope.themes").get_dropdown{layout_config = {width = 30}},
+        width = 40,
+        telescope_opts = require("telescope.themes").get_dropdown{layout_config = {width = 40}},
         mappings = function(prompt_bufnr, nmap)
             nmap('i', '<CR>', function()
                 require('telescope.actions').close(prompt_bufnr)

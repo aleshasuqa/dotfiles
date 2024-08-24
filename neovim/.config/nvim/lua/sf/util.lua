@@ -19,22 +19,30 @@ function P.hl_debug(cmd)
     return cmd .. ' | sed -E "s/(.*DEBUG)/' .. color .. '\\1' .. nc .. '/g"'
 end
 
+function P.hl_word(word, col)
+    local color = '$(echo -e "\\033[0;' .. col .. 'm")'
+    local nc = '$(echo -e "\\033[0m")'
+    return ' | sed -E "s/' .. word .. '/' .. color .. word .. nc .. '/g"'
+end
+
 function P.term(cmds)
     vim.cmd('term bash -c \'' .. table.concat(cmds, ';') .. '\'')
 end
 
-function P.retrieve(cmd, data)
+function P.retrieve(cmd, data, update)
+    -- print(vim.inspect(cmd))
     local cont = ""
     local tmpFile = '/tmp/sf/' .. data .. '.json'
-    if file_exists(tmpFile) then
+    if file_exists(tmpFile) and not update then
         cont = read_all(tmpFile)
     else
         local obj = vim.system(cmd, { text = true }):wait()
+        print(vim.inspect(obj))
         cont = obj.stdout
         local file = assert(io.open(tmpFile, "w+"))
         file:write(cont)
     end
-    print(cont)
+    -- print(cont)
     return vim.json.decode(cont)
 end
 
