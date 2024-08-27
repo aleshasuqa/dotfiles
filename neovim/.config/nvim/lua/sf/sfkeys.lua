@@ -4,7 +4,8 @@ local util = require('sf.util')
 
 map('n', ';;',
     function()
-        local cont = util.retrieve({'sf', 'sobject', 'list', '--json', '--sobject', 'all'}, 'AllObjects', false).result
+        local update = vim.fn.input('Update metadata list?(y/n): ') == 'y'
+        local cont = util.retrieve({'sf', 'sobject', 'list', '--json', '--sobject', 'all'}, 'AllObjects', update).result
         local p = {}
         for _, v in ipairs(cont) do
             table.insert(p, {
@@ -19,11 +20,12 @@ map('n', ';;',
             telescope_opts = require('telescope.themes').get_cursor{layout_config = {width = 40}},
             mappings = function(prompt_bufnr, nmap)
                 nmap('i', '<CR>', function()
+                    local updatemd = vim.fn.input('Update metadata?(y/n): ')
                     local actions = require 'telescope.actions'
                     local action_state = require 'telescope.actions.state'
                     local selection = action_state.get_selected_entry(prompt_bufnr)
                     actions.close(prompt_bufnr)
-                    vim.cmd('SFSObjectFields ' .. selection.value.name)
+                    vim.cmd('SFSObjectFields ' .. selection.value.name .. ' ' .. updatemd)
                 end)
                 return true
             end
@@ -59,7 +61,7 @@ map('n', '<leader>rs', function()
         local query = vim.fn.getreg('s')
         -- util.open_float(150, 80)
         vim.cmd('split')
-        vim.cmd('term sf data query --query \"' .. query .. '\"')
+        vim.cmd('term sf data query --target-org prod --query \"' .. query .. '\"')
     end)
 end, {})
 

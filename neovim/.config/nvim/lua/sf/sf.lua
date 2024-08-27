@@ -41,7 +41,9 @@ local commands = {
     },
     {
         name = 'org browser',
-        action = function() vim.cmd('SFOrgBrowser') end
+        action = function()
+            local update = vim.fn.input('Update metadata?(y/n): ')
+            vim.cmd('SFOrgBrowser ' .. update) end
     },
     {
         name = 'test class',
