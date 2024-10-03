@@ -66,7 +66,7 @@ on-focus-changed = "move-mouse window-lazy-center"
 inner.horizontal = 5
 inner.vertical =   5
 outer.left =       5
-outer.bottom =     20
+outer.bottom =     5
 outer.top =        5
 outer.right =      5
 
@@ -124,6 +124,7 @@ alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
 alt-b = 'workspace B'
 alt-t = 'workspace T'
 alt-m = 'workspace M'
@@ -133,6 +134,7 @@ alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
 alt-shift-b = 'move-node-to-workspace B'
 alt-shift-t = 'move-node-to-workspace T'
 alt-shift-m = 'move-node-to-workspace M'
@@ -145,6 +147,9 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = ['mode service', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=on']
+
+[workspace-to-monitor-force-assignment]
+B = ['secondary', 'main']
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -174,40 +179,40 @@ run = 'move-node-to-workspace T'
 if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace M'
 
-[key-mapping.key-notation-to-key-code]
-q = 'q'
-w = 'w'
-f = 'e'
-p = 'r'
-g = 't'
-j = 'y'
-l = 'u'
-u = 'i'
-y = 'o'
-semicolon = 'p'
-leftSquareBracket = 'leftSquareBracket'
-rightSquareBracket = 'rightSquareBracket'
-backslash = 'backslash'
-
-a = 'a'
-r = 's'
-s = 'd'
-t = 'f'
-d = 'g'
-h = 'h'
-n = 'j'
-e = 'k'
-i = 'l'
-o = 'semicolon'
-quote = 'quote'
-
-z = 'z'
-x = 'x'
-c = 'c'
-v = 'v'
-b = 'b'
-k = 'n'
-m = 'm'
-comma = 'comma'
-period = 'period'
-slash = 'slash'
+# [key-mapping.key-notation-to-key-code]
+# q = 'q'
+# w = 'w'
+# f = 'e'
+# p = 'r'
+# g = 't'
+# j = 'y'
+# l = 'u'
+# u = 'i'
+# y = 'o'
+# semicolon = 'p'
+# leftSquareBracket = 'leftSquareBracket'
+# rightSquareBracket = 'rightSquareBracket'
+# backslash = 'backslash'
+#
+# a = 'a'
+# r = 's'
+# s = 'd'
+# t = 'f'
+# d = 'g'
+# h = 'h'
+# n = 'j'
+# e = 'k'
+# i = 'l'
+# o = 'semicolon'
+# quote = 'quote'
+#
+# z = 'z'
+# x = 'x'
+# c = 'c'
+# v = 'v'
+# b = 'b'
+# k = 'n'
+# m = 'm'
+# comma = 'comma'
+# period = 'period'
+# slash = 'slash'
