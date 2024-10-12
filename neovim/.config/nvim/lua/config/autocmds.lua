@@ -25,3 +25,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         vim.highlight.on_yank { higroup = 'IncSearch', timeout = 100 }
     end,
 })
+
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+    pattern = {"docker-compose.yaml"},
+    callback = function()
+        vim.cmd("set filetype=yaml.docker-compose")
+    end,
+})

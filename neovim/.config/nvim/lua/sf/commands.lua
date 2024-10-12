@@ -288,10 +288,10 @@ command('SFCreateClass', function(args)
     local class = args.fargs[1]
     local cmd = '!sf apex generate class --name ' ..
     class .. ' --output-dir ' .. root .. '/force-app/main/default/classes'
-    local cmdTest = '!sf apex generate class --name ' ..
-    class .. 'Test --output-dir ' .. root .. '/force-app/main/default/classes'
+    -- local cmdTest = '!sf apex generate class --name ' ..
+    -- class .. 'Test --output-dir ' .. root .. '/force-app/main/default/classes'
     vim.cmd(cmd)
-    vim.cmd(cmdTest)
+    -- vim.cmd(cmdTest)
     vim.cmd('e ' .. root .. '/force-app/main/default/classes/' .. class .. '.cls')
 end, { nargs = 1 })
 

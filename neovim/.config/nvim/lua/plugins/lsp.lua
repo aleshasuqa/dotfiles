@@ -93,10 +93,11 @@ return {
                     vim.lsp.inlay_hint.enable(true)
                 end,
             }
-            lspconfig.tsserver.setup{
+            lspconfig.ts_ls.setup{
                 on_attach = function()
                     vim.lsp.inlay_hint.enable(true)
                 end,
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
             }
             lspconfig.pylsp.setup{}
             lspconfig.apex_ls.setup{
@@ -105,6 +106,18 @@ return {
                     vim.lsp.inlay_hint.enable(true)
                 end,
             }
+            lspconfig.tailwindcss.setup{
+                on_attach = function()
+                    vim.lsp.inlay_hint.enable(true)
+                end,
+            }
+            lspconfig.gopls.setup {
+                on_attach = function()
+                    vim.lsp.inlay_hint.enable(true)
+                end,
+            }
+            lspconfig.docker_compose_language_service.setup{}
+            lspconfig.svelte.setup{}
         end,
     }
 }

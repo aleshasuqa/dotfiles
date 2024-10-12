@@ -119,6 +119,7 @@ export LIBRARY_PATH="/opt/homebrew/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export PATH="/opt/homebrew/opt/bison/bin:$PATH"
 export BAT_THEME="kanagawa"
+export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
 
 # === psql ===
 export PGDATA="$HOME/postgres_data"
@@ -162,5 +163,9 @@ alias ll='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
 alias lt='lsd --tree -I node_modules'
+
+unalias gb
+alias gb='go build'
+
 eval 
 SF_AC_ZSH_SETUP_PATH=/Users/alekseikotliarov/Library/Caches/sf/autocomplete/zsh_setup && test -f $SF_AC_ZSH_SETUP_PATH && source $SF_AC_ZSH_SETUP_PATH; # sf autocomplete setup
